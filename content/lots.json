@@ -1,0 +1,59 @@
+[
+  {
+    "id": "gibe-gesha-lot-14",
+    "farmSlug": "gibe-gesha-farm",
+    "lotNumber": "Lot 14",
+    "process": "Washed",
+    "moisturePct": 11,
+    "cuppingScore": 91.5,
+    "availableVolumeKg": 320,
+    "retailPriceUsd": 42,
+    "fobPriceUsdPerKg": 28.5,
+    "tastingNotes": ["Bergamot", "Jasmine", "Stone Fruit", "Honey"],
+    "gallery": []
+  },
+  {
+    "id": "bale-mountain-lot-a2",
+    "farmSlug": "bale-mountain-coffee",
+    "lotNumber": "Lot A2",
+    "process": "Natural",
+    "cuppingScore": 87.0,
+    "availableVolumeMT": 4.2,
+    "fobPriceUsdPerKg": 9.4,
+    "tastingNotes": ["Wild Berry", "Cocoa"],
+    "gallery": []
+  },
+  {
+    "id": "debka-lot-07",
+    "farmSlug": "debka-farm",
+    "lotNumber": "Lot 07",
+    "process": "Honey",
+    "cuppingScore": 86.5,
+    "availableVolumeMT": 2.1,
+    "fobPriceUsdPerKg": 8.9,
+    "tastingNotes": ["Brown Sugar", "Citrus"],
+    "gallery": []
+  },
+  {
+    "id": "gellana-lot-03",
+    "farmSlug": "gellana-farm",
+    "lotNumber": "Lot 03",
+    "process": "Washed",
+    "cuppingScore": 88.0,
+    "availableVolumeMT": 3.6,
+    "fobPriceUsdPerKg": 9.1,
+    "tastingNotes": ["Floral", "Green Apple"],
+    "gallery": []
+  },
+  {
+    "id": "adami-tullu-lot-09",
+    "farmSlug": "adami-tullu",
+    "lotNumber": "Lot 09",
+    "process": "Natural",
+    "cuppingScore": 85.5,
+    "availableVolumeMT": 5.0,
+    "fobPriceUsdPerKg": 7.8,
+    "tastingNotes": ["Dried Fruit", "Molasses"],
+    "gallery": []
+  }
+]

@@ -1,0 +1,145 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql" // or "sqlite" depending on your setup
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  SUPER_ADMIN
+  FARM_LEAD
+  LOGISTICS_MANAGER
+  EXECUTIVE_VIEWER
+  CONTENT_EDITOR
+}
+
+enum ProductStatus {
+  IN_STOCK
+  LOW_STOCK
+  OUT_OF_STOCK
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum RFQStatus {
+  PENDING_QUOTE
+  QUOTE_SENT
+  CONTRACT_SIGNED
+  REJECTED
+}
+
+enum ShipmentStatus {
+  PREPARATION
+  CUSTOMS_CLEARANCE
+  IN_TRANSIT_SEA
+  IN_TRANSIT_AIR
+  DELIVERED
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model User {
+  id         String   @id @default(cuid())
+  name       String?
+  email      String   @unique
+  password   String
+  role       Role     @default(CONTENT_EDITOR)
+  brandScope String?
+  posts      Post[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Farm {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  sectorPath  String
+  status      String    @default("Live")
+  createdAt   DateTime  @default(now())
+  products    Product[]
+}
+
+model Product {
+  id          String        @id @default(cuid())
+  code        String        @unique
+  name        String
+  category    String
+  origin      String
+  stockKg     Float
+  pricePerKg  Float
+  status      ProductStatus @default(IN_STOCK)
+  farmId      String?
+  farm        Farm?         @relation(fields: [farmId], references: [id], onDelete: SetNull)
+  createdAt   DateTime      @default(now())
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  orderNumber String      @unique
+  customer    String
+  items       String
+  totalAmount Float
+  payment     String
+  status      OrderStatus @default(PENDING)
+  createdAt   DateTime    @default(now())
+}
+
+model RFQ {
+  id           String    @id @default(cuid())
+  rfqNumber    String    @unique
+  buyer        String
+  requestedLot String
+  quantity     String
+  status       RFQStatus @default(PENDING_QUOTE)
+  createdAt    DateTime  @default(now())
+}
+
+model Shipment {
+  id           String         @id @default(cuid())
+  code         String         @unique
+  destination  String
+  carrier      String
+  containerRef String
+  status       ShipmentStatus @default(PREPARATION)
+  eta          DateTime
+  createdAt    DateTime       @default(now())
+}
+
+model Post {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  subtitle    String?
+  excerpt     String?    @db.Text
+  coverImage  String?    // Primary header image URL
+  content     String     @db.Text // Rich HTML or Markdown content (headers, paragraphs, inline images)
+  category    String     @default("Harvest Report") // e.g., Harvest Report, News, Innovation
+  status      PostStatus @default(DRAFT)
+  authorId    String
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model SystemSettings {
+  id           String   @id @default(cuid())
+  siteName     String   @default("Kerchanshe Agriculture")
+  supportEmail String   @default("support@kerchanshe.com")
+  currency     String   @default("USD")
+  updatedAt    DateTime @updatedAt
+}
